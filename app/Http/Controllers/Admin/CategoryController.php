@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::paginate(10,['id','title']);
+        $categories=Category::orderby('id','desc')->paginate(10,['id','title']);
         // $categories=Category::pluck('title','id')->toArray();
         // dd($categories);
         return view('admin.categories.list',compact('categories'));
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     public function create()
     {
         $category=new Category;
-        return view('admin.categories.form',compact('category')); 
+        return view('admin.categories.form',compact('category'));
     }
 
     /**
@@ -34,14 +34,14 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-
+$request->merge(['slug'=>str_replace("","-",strtolower($request->slug))]);
        $category= Category::create($request->all())
         ;
         // return dd($request->all());
         if($category){
             return redirect()->route("admin.categories.index")->with(["success"=>'category added successfuly']);
         }else{
-            return redirect()->back()->withErrors(["error"=>'category creating faild']); 
+            return redirect()->back()->withErrors(["error"=>'category creating faild']);
         }
     }
 
@@ -69,13 +69,13 @@ class CategoryController extends Controller
     public function update(CategoryRequest  $request, Category $category)
     {
         //
+        $request->merge(['slug'=>str_replace("","-",strtolower($request->slug))]);
 
-       
         // return dd($request->all());
         if($category->update($request->all())){
             return redirect()->route("admin.categories.index")->with(["success"=>'category updated successfuly']);
         }else{
-            return redirect()->back()->withErrors(["error"=>'category updated faild']); 
+            return redirect()->back()->withErrors(["error"=>'category updated faild']);
         }
 
     }
@@ -83,8 +83,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
+
+        dd($id);
     }
 }

@@ -38,9 +38,12 @@ Route::post('reset/password',[ ResetPasswordController::class,'reset'])->name('p
        'edite'=>'categories.edite',
        'update'=>'categories.update',
        'destroy'=>'categories.destroy',
-        
+
         ]
     ]);
 //});
 
 });
+
+
+Route::post('categories.destroy',[CategoryController::class,'destroy'])->name('admin.categories.destroy');

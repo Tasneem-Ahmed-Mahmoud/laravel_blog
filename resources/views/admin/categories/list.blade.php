@@ -18,7 +18,7 @@
               <div class="card-body">
                 <h6 class="card-title">'
                 </h6>
-     
+
          @if(session('success'))
                 <div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -26,10 +26,10 @@
                <p>{{session('success')}}</p>
                 </div>
                 @endif
-               
+
 
                 <p class="card-text">
-                    
+
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -42,10 +42,19 @@
                   <tbody>
                     @foreach($categories as $key => $category)
                     <tr >
-                   
+
                     <td>{{$loop->iteration}}</td>
                       <td>{{$category->title}}</td>
-                      <td> <a href="{{route('admin.categories.edit',$category->id)}}"><i class="fa-solid fa-edit" ></i></a></td>
+                      <td class="d-flex">
+                        <a href="{{route('admin.categories.edit',$category->id)}}"><i class="fa-solid fa-edit" ></i></a>
+
+                        <form action="{{route('dmin.categories.destroy',$category->id)}}" method="post">
+
+                            @csrf
+                           <a class="px-5 delete-btn" href="javascript:;"><i class="fa-solid fa-trash text-danger" ></i></a>
+                        </form>
+
+                    </td>
 
                     </tr>
 
@@ -61,3 +70,17 @@
 
 
 @endsection('content')
+@section('extra-scripts')
+
+<script>
+    jQuery(function($){
+        alert("hello")
+         $('.delete-btn').click(function(e){
+e.preventDefault();
+$(this).parent().submit();
+alert("hello")
+
+         })
+    })
+</script>
+@endsection('extra-scripts')
