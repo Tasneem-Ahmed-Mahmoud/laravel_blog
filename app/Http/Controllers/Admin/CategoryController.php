@@ -83,10 +83,17 @@ $request->merge(['slug'=>str_replace("","-",strtolower($request->slug))]);
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
 
-        dd($id);
+
+
+        if($category->delete()){
+            return redirect()->route("admin.categories.index")->with(["success"=>'category deleted successfuly']);
+        }else{
+            return redirect()->back()->withErrors(["error"=>'category deleted faild']);
+        }
+       
     }
 }

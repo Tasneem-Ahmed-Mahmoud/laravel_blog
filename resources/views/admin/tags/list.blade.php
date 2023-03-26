@@ -1,6 +1,6 @@
 @extends('admin.tamplet.master')
 
-@section('page-title','categories')
+@section('page-title','tags')
 
 @section('content')
 
@@ -10,9 +10,9 @@
 
               <div class="card card-primary card-outline">
               <div class="card-header">
-                <h5 class="m-0">Categories</h5>
+                <h5 class="m-0">Tags</h5>
                 <div class="float-right">
-                    <a href="{{route('admin.categories.create')}}"><i class="fa-solid fa-plus text-info"></i></a>
+                    <a href="{{route('admin.tags.create')}}"><i class="fa-solid fa-plus text-info"></i></a>
                 </div>
               </div>
               <div class="card-body">
@@ -40,15 +40,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($categories as $key => $category)
+                    @foreach($tags as $key => $tag)
                     <tr >
 
                     <td>{{$loop->iteration}}</td>
-                      <td>{{$category->title}}</td>
+                      <td>{{$tag->title}}</td>
                       <td class="d-flex">
-                        <a href="{{route('admin.categories.edit',$category->id)}}"><i class="fa-solid fa-edit" ></i></a>
+                        <a href="{{route('admin.tags.edit',$tag->id)}}"><i class="fa-solid fa-edit" ></i></a>
 
-                        <form action="{{route('admin.categories.destroy',$category->id)}}" method="post">
+                        <form action="{{route('admin.tags.destroy',$tag->id)}}" method="post">
                            @method('delete')
                             @csrf
                            <a class="px-5 delete-btn" href="javascript:;"><i  class="fa-solid fa-trash text-danger" ></i></a>
@@ -66,7 +66,7 @@
             </div>
               </div>
               <!-- /.card-body -->
-            {{ $categories->render('admin.components.pagination')}}
+            {{ $tags->render('admin.components.pagination')}}
 
 
 @endsection('content')
