@@ -5,8 +5,10 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -74,7 +76,53 @@ Route::post('reset/password',[ ResetPasswordController::class,'reset'])->name('p
         ]
     ])->except(['show,create,store']);
 
- 
+ // users
+ Route::get('/users/{user}/approve',[UserController::class,'approve'])->name('users.approve');
+ Route::get('/users/{user}/reject',[UserController::class,'reject'])->name('users.reject');
+ Route::Resource('users','App\Http\Controllers\Admin\UserController',[
+    'names'=>[
+        'index'=>'users.index',
+   'create'=>'users.create',
+   'store'=>'users.store',
+   'edite'=>'users.edite',
+   'update'=>'users.update',
+   'destroy'=>'users.destroy',
+
+    ]
+])->except(['show']);
+
+
+
+ // comments
+ Route::get('/comments/{comment}/approve',[CommentController::class,'approve'])->name('comments.approve');
+ Route::get('/comments/{comment}/reject',[CommentController::class,'reject'])->name('comments.reject');
+ Route::Resource('comments','App\Http\Controllers\Admin\CommentController',[
+    'names'=>[
+        'index'=>'comments.index',
+         'destroy'=>'comments.destroy',
+         'show'=>'comments.show',
+
+    ]
+])->except(['update','store','create']);
+
+
+
+
+ // comments
+ Route::get('/pages/{page}/approve',[PageController::class,'approve'])->name('pages.approve');
+ Route::get('/pages/{page}/reject',[PageController::class,'reject'])->name('pages.reject');
+ Route::Resource('pages','App\Http\Controllers\Admin\PageController',[
+    'names'=>[
+        'index'=>'pages.index',
+         'destroy'=>'pages.destroy',
+         'show'=>'pages.show',
+         'create'=>'pages.create',
+         'store'=>'pages.store',
+
+    ]
+])->except([]);
+
+
 //});
 
 });

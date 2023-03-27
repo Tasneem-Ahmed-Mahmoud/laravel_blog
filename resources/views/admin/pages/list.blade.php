@@ -1,6 +1,6 @@
 @extends('admin.tamplet.master')
 
-@section('page-title','posts')
+@section('page-title','pages')
 
 @section('content')
 
@@ -10,8 +10,10 @@
 
               <div class="card card-primary card-outline">
               <div class="card-header">
-                <h5 class="m-0">Posts</h5>
-
+                <h5 class="m-0">pages</h5>
+                <div class="float-right">
+                    <a href="{{route('admin.pages.create')}}"><i class="fa-solid fa-plus text-info"></i></a>
+                </div>
               </div>
               <div class="card-body">
                 <h6 class="card-title">'
@@ -33,38 +35,24 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Title</th>
-                      <th>Category</th>
-                      <th>Approved</th>
                       <th>Action</th>
 
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($posts as $key => $post)
+                    @foreach($pages as $key => $page)
                     <tr >
 
                     <td>{{$loop->iteration}}</td>
-                      <td>{{$post->title}}</td>
-                      <td>
-                        @foreach($post->categories as $category)
-                    {{ isset($category)? $category->title:'not found'}}<br>
-@endforeach
-                      </td>
-                      <td>{{$post->approved}}</td>
+                      <td>{{$page->title}}</td>
                       <td class="d-flex">
-                        <a href="{{route('admin.posts.edit',$post->id)}}"><i class="fa-solid fa-edit" ></i></a>
+                        <a href="{{route('admin.pages.edit',$page->id)}}"><i class="fa-solid fa-edit" ></i></a>
 
-                        <form action="{{route('admin.posts.destroy',$post->id)}}" method="post">
+                        <form action="{{route('admin.pages.destroy',$page->id)}}" method="post">
                            @method('delete')
                             @csrf
                            <a class="px-5 delete-btn" href="javascript:;"><i  class="fa-solid fa-trash text-danger" ></i></a>
                         </form>
-
-
-                        <div class="float-left">
-
-                            <a href="{{ $post->approved == 'Approved' ? route('admin.posts.reject',$post->id) : route('admin.posts.approve',$post->id) }}"><i class="fas fa-edit"></i>&nbsp;{{ $post->approved == 'Approved' ? 'Reject' : 'Approve' }}</a>
-                        </div>
 
                     </td>
 
@@ -78,7 +66,7 @@
             </div>
               </div>
               <!-- /.card-body -->
-            {{ $posts->render('admin.components.pagination')}}
+            {{ $pages->render('admin.components.pagination')}}
 
 
 @endsection('content')
@@ -120,9 +108,5 @@
 
          })
     })
-
-
-
-
 </script>
 @endsection('extra-scripts')
