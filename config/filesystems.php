@@ -52,7 +52,13 @@ return [
            
         ],
 
-       
+        'admins' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/admins'),
+            'url' => env('APP_URL').'/storage/admins',
+            'visibility' => 'public',
+           
+        ],
 
         's3' => [
             'driver' => 's3',

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use  App\Models\Category;
 use  App\Models\Comment;
+use Illuminate\Support\Facades\Storage;
+
+
 class Post extends Model
 {
     use HasFactory;
@@ -19,6 +22,10 @@ function categories(){
 
 
 function setImageAttribute($value){
+
+    if($this->image){
+        Storage::disk('posts')->delete($this->image);
+    }
     $image= request()->image->store('/','posts'); //root
     $this->attributes['image']=$image;
     // dd($this->attributes);

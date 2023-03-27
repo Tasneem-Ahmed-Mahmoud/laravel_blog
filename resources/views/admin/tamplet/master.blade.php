@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+ 
   <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
   <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/select2-bootstrap4.min.css')}}">

@@ -68,20 +68,14 @@ class CommentController extends Controller
 
     public function approve(Comment $comment)
     {
+
+        // dd(request()->route());
         if($comment->update(['approved' => 1])){
             return redirect()->back()->with(['success' => 'Comment Approved']);
         }
         return redirect()->back()->withErrors(['error' => 'Comment Apporving failed']);
     }
-    // public function approve(Comment $comment)
-    // {
-
-    //     if ($comment->update(['approved'=> 1 ])) {
-    //         return redirect()->back()->with(["success"=>'comment approved successfuly']);
-    //     } else {
-    //         return redirect()->back()->withErrors(["error"=>'comment approved faild']);
-    //     };
-    // }
+    
     public function reject(Comment $comment)
     {
 

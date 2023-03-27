@@ -1,15 +1,17 @@
 <?php
 
-
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,7 +33,7 @@ Route::post('password/reset',[ForgotPasswordController::class,'sendResetLinkEmai
 Route::get('reset/password/{token}',[ ResetPasswordController::class,'showResetForm'])->name('reset.password');
 Route::post('reset/password',[ ResetPasswordController::class,'reset'])->name('password.update');
 
-// Route::group(['middleware'=>'auth:admin'],function(){
+ Route::group(['middleware'=>'auth:admin'],function(){
     Route::get('/admin/home',[DashboardController::class,'index'])->name('home');
     Route::get('logout',[LoginController::class,'logout'])->name('logout');
     // gategories
@@ -108,9 +110,8 @@ Route::post('reset/password',[ ResetPasswordController::class,'reset'])->name('p
 
 
 
- // comments
- Route::get('/pages/{page}/approve',[PageController::class,'approve'])->name('pages.approve');
- Route::get('/pages/{page}/reject',[PageController::class,'reject'])->name('pages.reject');
+ // pages
+
  Route::Resource('pages','App\Http\Controllers\Admin\PageController',[
     'names'=>[
         'index'=>'pages.index',
@@ -120,10 +121,41 @@ Route::post('reset/password',[ ResetPasswordController::class,'reset'])->name('p
          'store'=>'pages.store',
 
     ]
-])->except([]);
+]);
 
 
-//});
+
+ // contact us
+ Route::get('/contactus/{contactus}/toggle_read',[ContactUsController::class,'toggle_read'])->name('cotactus.toggle_read');
+ Route::Resource('contactus','App\Http\Controllers\Admin\ContactUsController',[
+    'names'=>[
+        'index'=>'contactus.index',
+         'destroy'=>'contactus.destroy',
+         'show'=>'contactus.show',
+
+
+    ]
+])->except(['update','store','create']);
+
+
+ // admins
+ Route::get('/admins/{admin}/approve',[AdminController::class,'approve'])->name('admins.approve');
+ Route::get('/admins/{admin}/reject',[AdminController::class,'reject'])->name('admins.reject');
+ Route::Resource('admins','App\Http\Controllers\Admin\AdminController',[
+    'names'=>[
+        'index'=>'admins.index',
+   'create'=>'admins.create',
+   'store'=>'admins.store',
+   'edite'=>'admins.edite',
+   'update'=>'admins.update',
+   'destroy'=>'admins.destroy',
+
+    ]
+])->except(['show']);
+
+
+
+});
 
 });
 

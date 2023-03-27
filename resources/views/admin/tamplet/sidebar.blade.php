@@ -4,18 +4,20 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{asset('images/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Tech_Blog</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        @if(auth('admin')->user()->image)
         <div class="image">
-          <img src="{{asset('images/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ Storage::disk('admins')->url(auth('admin')->user()->image)}}" class="img-circle elevation-2" alt="User Image">
         </div>
+        @endif
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{auth('admin')->user()->name}}</a>
         </div>
       </div>
 
@@ -163,7 +165,7 @@
           </li>
 
    <!-- pages -->
-   <li class="nav-item     {{Route::is('admin.pages.index')||Route::is('admin.pages.create')?'menu-open ': ''}}">
+          <li class="nav-item     {{Route::is('admin.pages.index')||Route::is('admin.pages.create')?'menu-open ': ''}}">
             <a href="#" class="nav-link {{Route::is('admin.pages.index')||Route::is('admin.pages.create')?'active ': ''}}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -187,13 +189,61 @@
             </ul>
           </li>
 
+
+               <!-- contactus-->
+   <li class="nav-item     {{Route::is('admin.contactus.index')?'menu-open ': ''}}">
+            <a href="#" class="nav-link {{Route::is('admin.contactus.index')?'active ': ''}}">
+              <i class="nav-icon fas fa-message"></i>
+              <p>
+               Contactus
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.contactus.index')}}" class="nav-link {{Route::is('admin.contactus.index')?'active': ''}}">
+                  <i class="far fa fa-list-alt  nav-icon"></i>
+                  <p>List contactus</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
+<!-- admins-->
+
+<li class="nav-item     {{Route::is('admin.admins.index')||Route::is('admin.admins.create')?'menu-open ': ''}}">
+            <a href="#" class="nav-link {{Route::is('admin.admins.index')||Route::is('admin.admins.create')?'active ': ''}}">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+               Admins
+                <i class="right fas fa-angle-left nav-icon"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.admins.index')}}" class="nav-link {{Route::is('admin.admins.index')?'active': ''}}">
+                  <i class="far fa fa-admins nav-icon"></i>
+                  <p>List Admins</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.admins.create')}}" class="nav-link {{Route::is('admin.admins.create')?'active': ''}}">
+                  <i class="far fa-plus nav-icon"></i>
+                  <p>Create Admin</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
           <!-- nothing -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{route('admin.logout')}}" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt "></i>
               <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
+                Logout
+              
               </p>
             </a>
           </li>

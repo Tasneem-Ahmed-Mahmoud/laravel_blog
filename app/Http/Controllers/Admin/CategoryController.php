@@ -34,6 +34,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+        //  dd($request->all());
 $request->merge(['slug'=>str_replace("","-",strtolower($request->slug))]);
        $category= Category::create($request->all())
         ;
